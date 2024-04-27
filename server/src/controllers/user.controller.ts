@@ -59,7 +59,7 @@ async function createUser(req: Request, res: Response) {
 
         const user = new User({email: email, name: name, _id: _id, ownerId: ownerId, password: password})
         user.save().then(data => {
-            res.status(200).send(data)
+            res.status(201).send(data)
         }).catch(error => {
             res.status(500).send(error)
         })

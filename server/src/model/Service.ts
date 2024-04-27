@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, PopulatedDoc, Schema } from 'mongoose';
 import { IDynamicPrice } from './DynamicPrice';
 
-interface IService extends Document {
+export interface IService extends Document {
     isActive: boolean;
     comment?: string,
     createdAt: Date,

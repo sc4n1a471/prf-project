@@ -11,13 +11,13 @@ async function getServices(req: Request, res: Response) {
             return;
         }
 
-        const query = Service.find({userId: req.user, isActive: true}).populate('dynamicPrices').exec();
-        query.then(data => {
-            res.status(200).send(data);
-        }).catch(error => {
-            console.log(error);
-            res.status(500).send('Internal server error.');
-        })
+        Service.find({userId: req.user, isActive: true}).populate('dynamicPrices').exec()
+            .then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            })
     } else {
         res.status(401).send('User is not logged in.');
     }
@@ -25,13 +25,13 @@ async function getServices(req: Request, res: Response) {
 
 async function getService(req: Request, res: Response) {
     if (req.isAuthenticated()) {
-        const query = Service.findById(req.params.id).populate('dynamicPrices').exec();
-        query.then(data => {
-            res.status(200).send(data);
-        }).catch(error => {
-            console.log(error);
-            res.status(500).send('Internal server error.');
-        })
+        Service.findById(req.params.id).populate('dynamicPrices').exec()
+            .then(data => {
+                res.status(200).send(data);
+            }).catch(error => {
+                console.log(error);
+                res.status(500).send('Internal server error.');
+            })
     } else {
         res.status(401).send('User is not logged in.');
     }
@@ -60,7 +60,7 @@ async function createService(req: Request, res: Response) {
 
             const service = new Service({name: name, price: price, comment: comment, userId: userId, dynamicPrices: dps})
             service.save().then(async data => {
-                res.status(200).send(data);
+                res.status(201).send(data);
             }).catch(error => {
                 console.log(error);
                 res.status(500).send('Internal server error.');
@@ -68,7 +68,7 @@ async function createService(req: Request, res: Response) {
         } else {
             const service = new Service({name: name, price: price, comment: comment, userId: userId}) 
             service.save().then(async data => {
-                res.status(200).send(data);
+                res.status(201).send(data);
             }).catch(error => {
                 console.log(error);
                 res.status(500).send('Internal server error.');
