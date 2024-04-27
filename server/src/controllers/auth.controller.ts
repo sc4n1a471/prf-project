@@ -49,10 +49,8 @@ async function checkAuth(req: Request, res: Response) {
 }
 
 async function checkAdmin(req: Request, res: Response): Promise<boolean> {
-    const query = User.findOne({_id: req.user})
-    return query.then(data => {
-        console.log(data);
-        
+    const query = User.findById(req.user)
+    return query.then(data => {        
         if (data) {
             return data.isAdmin
         } else {

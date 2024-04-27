@@ -1,5 +1,5 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
-import { DynamicPrice } from './DynamicPrice';
+import mongoose, { Document, Model, PopulatedDoc, Schema } from 'mongoose';
+import { IDynamicPrice } from './DynamicPrice';
 
 interface IService extends Document {
     isActive: boolean;
@@ -9,7 +9,8 @@ interface IService extends Document {
     userId: Schema.Types.ObjectId;
     prevServiceId: Schema.Types.ObjectId;
     price: number;
-    dynamicPrices?: typeof DynamicPrice[];
+    dynamicPrices?: PopulatedDoc<IDynamicPrice & Document>;
+    _id: Schema.Types.ObjectId;
 }
 
 const ServiceSchema: Schema<IService> = new mongoose.Schema({
@@ -20,6 +21,7 @@ const ServiceSchema: Schema<IService> = new mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, required: true},
     prevServiceId: { type: Schema.Types.ObjectId, required: false },
     price: { type: Number, required: true },
+    dynamicPrices: [{ type: Schema.Types.ObjectId, ref: 'DynamicPrice'}],
 });
 
 export const Service: Model<IService> = mongoose.model<IService>('Service', ServiceSchema);
