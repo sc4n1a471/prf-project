@@ -15,6 +15,7 @@ router.get("/ping", (req: Request, res: Response) => {
 
 router.post("/login", auth.controller.login)
 router.get("/checkAuth", auth.controller.checkAuth)
+router.get("/checkAdmin", auth.controller.checkAdminWrapper)
 router.post("/logout", auth.controller.logout)
 
 router.get("/users", user.controller.getUsers)
