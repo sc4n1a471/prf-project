@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
-import { PassInUse } from '../model/PassInUse';
+import { IPassInUse, PassInUse } from '../model/PassInUse';
 import { Income } from '../model/Income';
 import * as auth from './auth.controller';
 import * as income from './income.controller';
+import mongoose from 'mongoose';
+import { Pass } from '../model/Pass';
 
 async function getPassesInUse(req: Request, res: Response) {
     if (req.isAuthenticated()) {
@@ -67,10 +69,16 @@ async function createPassInUse(req: Request, res: Response) {
             validFrom,
             validUntil
         });
+
+        const pass = await Pass.findById(passId)
+        if (!pass) {
+            res.status(404).send('Pass not found.')
+            return
+        }
+
         passInUse.save().then(data => {
             const newIncome = new Income({
-                amount: 0,
-                comment: 'PassInUse',
+                amount: pass.price,
                 userId: data.userId,
                 passInUseId: data._id,
                 // serviceId: null,
@@ -123,9 +131,68 @@ async function deletePassInUse(req: Request, res: Response) {
     }
 }
 
+// Helper functions
+async function usePassInUse(payerId: mongoose.Schema.Types.ObjectId, serviceId: mongoose.Schema.Types.ObjectId): Promise<boolean | null> {
+    const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate('pass').populate('services').exec();
+    if (!passesInUse) {
+        return null;
+    }
+
+    for (const passInUse of passesInUse) {
+        const valid = await checkPassInUseValidity(passInUse, serviceId);
+        if (valid) {
+            passInUse.occasions += 1;
+            const query = await passInUse.save();
+            if (!query) {
+                return null;
+            }
+            return true;
+        }
+    }
+
+    return false
+}
+
+async function checkPassInUseValidity(passInUse: IPassInUse, serviceId: mongoose.Schema.Types.ObjectId): Promise<boolean> {
+    let now = new Date()
+
+    if (passInUse.validFrom > now) {
+        return false
+    }
+
+    if (!passInUse.pass.occasionLimit) {
+        if (passInUse.validUntil < now) {
+            await invalidatePassInUse(passInUse._id);
+            return false
+        }
+    } else {
+        if (passInUse.validUntil < now || passInUse.occasions >= passInUse.pass.occasionLimit) {
+            await invalidatePassInUse(passInUse._id);
+            return false
+        }
+    }
+
+    // Checking if selected service is in the pass' service list
+    console.log(`Service is included in pass' service list: ${passInUse.pass.services.includes(serviceId)}`);
+    if (!passInUse.pass.services.includes(serviceId)) {
+        return false
+    }
+    return true
+}
+
+async function invalidatePassInUse(passInUseId: mongoose.Schema.Types.ObjectId): Promise<boolean> {
+    const query = await PassInUse.findByIdAndUpdate(passInUseId, {isActive: false});
+    if (query) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 export const controller = {
     getPassInUse,
     getPassesInUse,
     createPassInUse,
-    deletePassInUse
+    deletePassInUse,
+    usePassInUse,
 }

@@ -1,17 +1,17 @@
-import mongoose, { Document, Model, PopulatedDoc, Schema } from 'mongoose';
-import { IService } from './Service';
+import mongoose, { Document, Model, PopulatedDoc, Schema } from "mongoose"
+import { IService } from "./Service"
 
 export interface IPass extends Document {
-    isActive: boolean;
-    comment?: string;
-    createdAt: Date;
-    duration: string;
-    name: string;
-    occasionLimit: number;
-    userId: Schema.Types.ObjectId;
-    prevPassId: Schema.Types.ObjectId;
-    price: number;
-    services: PopulatedDoc<IService & Document>;
+    isActive: boolean
+    comment?: string
+    createdAt: Date
+    duration: string
+    name: string
+    occasionLimit: number
+    userId: Schema.Types.ObjectId
+    prevPassId: Schema.Types.ObjectId
+    price: number
+    services: PopulatedDoc<IService & Document>
 }
 
 const PassSchema: Schema<IPass> = new mongoose.Schema({
@@ -24,7 +24,7 @@ const PassSchema: Schema<IPass> = new mongoose.Schema({
     userId: { type: Schema.Types.ObjectId, required: true },
     prevPassId: { type: Schema.Types.ObjectId, required: true },
     price: { type: Number, required: true },
-    services: [{ type: Schema.Types.ObjectId, ref: 'Service'}],
-});
+    services: [{ type: Schema.Types.ObjectId, ref: "Service" }],
+})
 
-export const Pass: Model<IPass> = mongoose.model<IPass>('Pass', PassSchema);
+export const Pass: Model<IPass> = mongoose.model<IPass>("Pass", PassSchema)
