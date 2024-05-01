@@ -1,0 +1,33 @@
+mat-nav-list {
+  width: 210px;
+}
+
+.active-list-item {
+  color: #3F51B5 !important;
+  background-color: rgba(147, 147, 147, 0.48);
+}
+
+a {
+  width: auto;
+  display: flex;
+  align-items: center;
+  /*justify-content: center;*/
+  border-radius: 10px;
+  margin: 10px;
+  /*margin-left: 32px;*/
+  font-size: 2rem;
+  color: lightgray;
+  justify-content: flex-start;
+  /*font-size: 1rem;*/
+}
+
+mat-icon {
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+span {
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+}

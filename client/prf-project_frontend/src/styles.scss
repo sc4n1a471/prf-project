@@ -1,11 +1,81 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html, body {
+  height: 100%;
 }
 
-app-root {
-    width: 100%;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html .new-something, .my-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 92vh;
+  text-align: center;
+}
+
+html .every-component {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 92vh;
+  overflow-y: scroll;
+}
+
+.spinner {
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  backdrop-filter: blur(2px);
+}
+
+html body mat-card {
+  margin-bottom: 5%;
+}
+
+html body .form-button {
+  /*margin-bottom: 5%;*/
+}
+
+@media (max-width: 800px) {
+  html body mat-tab-group {
+    width: 95% !important;
+  }
+}
+html .expansion-panel {
+  border-radius: 10px;
+}
+
+html .modifier-forms {
+  column-count: 2;
+}
+
+html .modifier-forms mat-form-field {
+  width: 80%;
+}
+
+@media (max-width: 800px) {
+  html .modifier-forms {
+    column-count: 1 !important;
+  }
+  html .modifier-forms mat-form-field {
+    width: 95% !important;
+  }
+  html button {
+    margin-bottom: 1%;
+  }
 }

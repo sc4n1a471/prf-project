@@ -4,5 +4,5 @@ export const endpoints = {
     logout: 'http://localhost:5005/prf/logout',
     checkAuth: 'http://localhost:5005/prf/checkAuth',
     checkAdmin: 'http://localhost:5005/prf/checkAdmin',
-    getAllUsers: 'http://localhost:5005/prf/getAllUsers',
+    getAllUsers: 'http://localhost:5005/prf/users',
 }

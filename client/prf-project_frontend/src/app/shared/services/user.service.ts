@@ -1,16 +1,26 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { User } from '../model/User';
 import { endpoints } from '../../../environments/endpoints';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class UserService {
+	users = signal<User[]>([])
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) {}
 
-  getAllUsers() {
-    return this.http.get<User[]>(endpoints.getAllUsers, {withCredentials: true});
-  }
+	getAllUsers() {
+		this.http.get<User[]>(endpoints.getAllUsers, {
+			withCredentials: true,
+		}).subscribe({
+			next: (data) => {
+				this.users.set(data)				
+			},
+			error: (err) => {
+				console.log(err)
+			},
+		})
+	}
 }

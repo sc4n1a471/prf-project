@@ -1,18 +1,33 @@
-<div class="login-container">
-    <form class="login-form" (ngSubmit)="login()">
-        <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required />
-        <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
-        <div class="buttons">
-            <button type="submit">Login</button>
-        </div>
-        <div class="buttons">
-            <button type="button" (click)="navigate('/signup')">Sign Up</button>
-        </div>
-        <!-- <div class="buttons">
-            <button type="button" routerLink="/signup">Sign Up</button>
-        </div> -->
-        <div *ngIf="errorMessage">
-            <p>{{errorMessage}}</p>
-        </div>
-    </form>
+<div class="every-component">
+	<mat-card>
+		<h1>Bejelentkezés</h1>
+		<!--    https://stackoverflow.com/questions/37577919/angular2-submit-form-by-pressing-enter-without-submit-button -->
+		<form [formGroup]="loginForm" (keydown.enter)="login()">
+			<mat-form-field>
+				<mat-label>Email cím / Telefonszám: </mat-label>
+				<input matInput type="text" formControlName="email" />
+			</mat-form-field>
+
+			<br />
+
+			<mat-form-field>
+				<mat-label>Jelszó: </mat-label>
+				<input matInput type="password" formControlName="passwd" />
+			</mat-form-field>
+
+			<br />
+
+			<span>
+				<button
+					mat-raised-button
+					color="primary"
+					(click)="login()"
+					[disabled]="!loginForm.valid"
+				>
+					Bejelentkezés
+				</button>
+				<br />
+			</span>
+		</form>
+	</mat-card>
 </div>
