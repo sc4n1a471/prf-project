@@ -1,25 +1,24 @@
 <div class="every-component">
-	<mat-tab-group>
-		<mat-tab label="Szolgáltatások">
-			<!-- <app-no-records [data$]="services$" [loading]="isServiceListLoading"></app-no-records> -->
+	<mat-tab-group #tabGroup>
+		<mat-tab label="Felhasználók">
+			<!-- <app-no-records [data$]="users$" [loading]="isUserListLoading"></app-no-records> -->
 			<mat-expansion-panel
+				hideToggle
 				(afterCollapse)="onCollapse()"
-				*ngFor="let service of services"
+				*ngFor="let user of users"
 				class="expansion-panel"
 			>
 				<mat-expansion-panel-header>
 					<mat-panel-title>
-						{{ service.name }}
+						{{ user.name }}
 					</mat-panel-title>
 
 					<mat-panel-description>
-						{{ service.price | currency : "HUF" }}
+						{{ user.email }}
 					</mat-panel-description>
 				</mat-expansion-panel-header>
-
-				<br />
-				<span>
-					Itten majd lenni more info about {{ service.name }}
+                <span>
+					Itten majd lenni more info about {{ user.email }}
 				</span>
 			</mat-expansion-panel>
 		</mat-tab>

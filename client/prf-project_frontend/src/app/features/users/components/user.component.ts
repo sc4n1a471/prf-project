@@ -1,6 +1,8 @@
 import { Component, effect } from '@angular/core';
-import { Service } from '../../../shared/model/Service';
-import { ServiceService } from '../services/service.service';
+import { Router } from '@angular/router';
+import { User } from '../../../shared/model/User';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from "@angular/material/card";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -12,9 +14,8 @@ import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from "@angular/material/input";
 
-
 @Component({
-	selector: 'app-service',
+	selector: 'app-user',
 	standalone: true,
 	imports: [
 		MatTabsModule,
@@ -28,42 +29,33 @@ import { MatInputModule } from "@angular/material/input";
 		MatCardModule,
 		
 	],
-	templateUrl: './service.component.html',
-	styleUrl: './service.component.scss',
+	templateUrl: './user.component.html',
+	styleUrl: './user.component.scss',
 })
-export class ServiceComponent {
-	services: Service[] = []
+export class UserComponent {
+	users: User[] = [];
 
-	constructor(
-		private serviceService: ServiceService,
-		private fb:FormBuilder,
-	) {
-		effect(() => {
-			this.services = this.serviceService.services()
-			console.log("this.services got updated in service.component.ts");
-		})
-	}
-
-    editPanelOpenState = false
+	editPanelOpenState = false
 	isEditing = false
     isDeleting = false
 
-	ngOnInit() {
-		this.serviceService.getServices()
+	constructor(
+		private userService: UserService,
+		private authService: AuthService,
+		private router: Router
+	) {
+		effect(() => {
+			this.users = this.userService.users();
+			console.log('this.users got updated in user-management');
+		});
 	}
 
-	onEditStart() {
-        this.editPanelOpenState = true
-        this.isEditing = true
-    }
-    onEditFinish() {
-        this.editPanelOpenState = false
-        this.onCollapse()
-    }
-    onCollapse() {
+	ngOnInit() {
+		this.userService.getUsers();
+	}
+
+	onCollapse() {
         this.isEditing = false
         this.isDeleting = false
-        // this.editedServiceDynamicPrices.reset()
-        // this.prices.clear()
     }
 }

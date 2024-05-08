@@ -1,9 +1,6 @@
 import {
-	AfterViewInit,
 	Component,
 	EventEmitter,
-	Input,
-	OnInit,
 	Output,
 	effect,
 } from '@angular/core'
@@ -52,8 +49,8 @@ export class NavComponent {
 		effect(() => {
 			this.isAuthenticated = this.authService.isAuthenticated()
 			this.isAdmin = this.authService.isAdmin()
-            console.log("this.isAuthenticated got updated in nav");
-            console.log("this.isAdmin got updated in nav");
+            console.log("this.isAuthenticated got updated in nav", this.isAuthenticated);
+            console.log("this.isAdmin got updated in nav", this.isAdmin);
 		})
 
 		effect(() => {

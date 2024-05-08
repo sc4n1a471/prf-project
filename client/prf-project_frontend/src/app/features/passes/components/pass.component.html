@@ -1,0 +1,50 @@
+<div class="every-component">
+	<mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
+		<mat-tab label="Bérletek">
+			<!-- <app-no-records [data$]="services$" [loading]="isServiceListLoading"></app-no-records> -->
+			<mat-expansion-panel
+				(afterCollapse)="onCollapse()"
+				*ngFor="let pass of passes"
+				class="expansion-panel"
+			>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						{{ pass.name }}
+					</mat-panel-title>
+
+					<mat-panel-description>
+						{{ pass.price | currency : "HUF" }}
+					</mat-panel-description>
+				</mat-expansion-panel-header>
+
+				<br />
+				<span>
+					Itten majd lenni more info about {{ pass.name }}
+				</span>
+			</mat-expansion-panel>
+		</mat-tab>
+        <mat-tab label="Aktív Bérletek">
+			<!-- <app-no-records [data$]="services$" [loading]="isServiceListLoading"></app-no-records> -->
+			<mat-expansion-panel
+				(afterCollapse)="onCollapse()"
+				*ngFor="let activePass of activePasses"
+				class="expansion-panel"
+			>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						{{ activePass.pass.name }}
+					</mat-panel-title>
+
+					<mat-panel-description>
+						{{ activePass.pass.price | currency : "HUF" }}
+					</mat-panel-description>
+				</mat-expansion-panel-header>
+
+				<br />
+				<span>
+					Itten majd lenni more info about {{ activePass.pass.name }}
+				</span>
+			</mat-expansion-panel>
+		</mat-tab>
+	</mat-tab-group>
+</div>

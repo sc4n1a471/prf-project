@@ -13,54 +13,29 @@
 
   <mat-divider *ngIf="isAuthenticated && isAdmin"></mat-divider>
 
+  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/users" routerLinkActive="active-list-item" (click)="close()">
+    <mat-icon>water_drop_rounded</mat-icon>
+    <span>Emberkék</span>
+  </a>
+
   <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/services" routerLinkActive="active-list-item" (click)="close()">
     <mat-icon>water_drop_rounded</mat-icon>
     <span>Szolgáltatások</span>
   </a>
 
+  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/passes" routerLinkActive="active-list-item" (click)="close()">
+    <mat-icon>water_drop_rounded</mat-icon>
+    <span>Bérletek</span>
+  </a>
+
+  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/incomes" routerLinkActive="active-list-item" (click)="close()">
+    <mat-icon>water_drop_rounded</mat-icon>
+    <span>Bevételek</span>
+  </a>
+
   <a *ngIf="!isAuthenticated" mat-list-item routerLink="/login" routerLinkActive="active-list-item" (click)="close()">
     <mat-icon>login</mat-icon>
     <span>Bejelentkezés</span>
-  </a>
-  <!--    <a mat-list-item routerLink="/register" (click)="close()">-->
-  <!--        <mat-icon>app_registration</mat-icon>-->
-  <!--        <span>Register</span>-->
-  <!--    </a>-->
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/budget" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>savings_rounded</mat-icon>
-    <span>Budget</span>
-  </a>
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/consumptions" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>water_drop_rounded</mat-icon>
-    <span>Fogyasztások</span>
-  </a>
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/contracts" routerLinkActive="active-list-item"  (click)="close()">
-    <mat-icon>recent_actors_rounded</mat-icon>
-    <span>Szerződések</span>
-  </a>
-  <a *ngIf="isAuthenticated" mat-list-item routerLink="/passes" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>import_contacts_rounded</mat-icon>
-    <span>Aktív bérletek</span>
-  </a>
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/sums" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>summarize_rounded</mat-icon>
-    <span>Összesítések</span>
-  </a>
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/data" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>description_rounded</mat-icon>
-    <span>Egyéb adatok</span>
-  </a>
-  <a *ngIf="isAuthenticated && !isAdmin" mat-list-item routerLink="/used-services" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>checklist_rounded</mat-icon>
-    <span>Használataim</span>
-  </a>
-  <!--    <a *ngIf="isAuthenticated && !isAdmin" mat-list-item routerLink="/my-sums" routerLinkActive="active-list-item" (click)="close()">-->
-  <!--        <mat-icon>summarize_rounded</mat-icon>-->
-  <!--        <span>sums</span>-->
-  <!--    </a>-->
-  <a *ngIf="isAuthenticated && !isAdmin" mat-list-item routerLink="/my-contracts" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>recent_actors_rounded</mat-icon>
-    <span>Szerződések</span>
   </a>
 
   <mat-divider *ngIf="isAuthenticated" ></mat-divider>
@@ -69,6 +44,7 @@
     <mat-icon>manage_accounts_rounded</mat-icon>
     <span>Profilom</span>
   </a>
+  
   <a *ngIf="isAuthenticated" mat-list-item routerLink="/main" (click)="close(true)">
     <mat-icon>logout</mat-icon>
     <span>Kijelentkezés</span>

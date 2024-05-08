@@ -1,5 +1,5 @@
 import { Pass } from "./Pass";
-import { PassInUse } from "./PassInUse";
+import { ActivePass } from "./ActivePass";
 import { Service } from "./Service";
 
 export interface User {
@@ -13,6 +13,6 @@ export interface User {
     updatedAt: Date;
     services?: Service[];
     passes?: Pass[];
-    passesInUse: PassInUse[];
+    passesInUse: ActivePass[];
     // myUsers: User[];
 }

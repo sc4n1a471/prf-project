@@ -28,10 +28,28 @@ export const routes: Routes = [
         data: { roles: ['admin'] },
     },
     {
-        path: 'user-management',
+        path: 'users',
         loadComponent: () =>
-            import('./user-management/user-management.component').then(
-                (c) => c.UserManagementComponent
+            import('./features/users/components/user.component').then(
+                (c) => c.UserComponent
+            ),
+        canActivate: [authGuard],
+        data: { roles: ['admin'] },
+    },
+    {
+        path: 'passes',
+        loadComponent: () =>
+            import('./features/passes/components/pass.component').then(
+                (c) => c.PassComponent
+            ),
+        canActivate: [authGuard],
+        data: { roles: ['admin'] },
+    },
+    {
+        path: 'incomes',
+        loadComponent: () =>
+            import('./features/incomes/components/income.component').then(
+                (c) => c.IncomeComponent
             ),
         canActivate: [authGuard],
         data: { roles: ['admin'] },

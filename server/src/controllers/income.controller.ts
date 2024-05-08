@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { Income, IIncome } from "../model/Income"
 import { Service } from "../model/Service"
 import * as auth from "./auth.controller"
-import * as passInUse from "./passInUse.controller"
+import * as passInUse from "./activePass.controller"
 import { IDynamicPrice } from "../model/DynamicPrice"
 import mongoose from "mongoose"
 

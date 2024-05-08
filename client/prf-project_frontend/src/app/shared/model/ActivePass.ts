@@ -1,6 +1,6 @@
 import { Pass } from "./Pass";
 
-export interface PassInUse {
+export interface ActivePass {
     _id: string;
     passId: string;
     userId: string;

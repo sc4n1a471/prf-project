@@ -1,25 +1,25 @@
 <div class="every-component">
 	<mat-tab-group>
-		<mat-tab label="Szolgáltatások">
+		<mat-tab label="Bevételek">
 			<!-- <app-no-records [data$]="services$" [loading]="isServiceListLoading"></app-no-records> -->
 			<mat-expansion-panel
 				(afterCollapse)="onCollapse()"
-				*ngFor="let service of services"
+				*ngFor="let income of incomes"
 				class="expansion-panel"
 			>
 				<mat-expansion-panel-header>
 					<mat-panel-title>
-						{{ service.name }}
+						{{ income.name }}
 					</mat-panel-title>
 
 					<mat-panel-description>
-						{{ service.price | currency : "HUF" }}
+						{{ income.amount | currency : "HUF" }}
 					</mat-panel-description>
 				</mat-expansion-panel-header>
 
 				<br />
 				<span>
-					Itten majd lenni more info about {{ service.name }}
+					Itten majd lenni more info about {{ income.name }}
 				</span>
 			</mat-expansion-panel>
 		</mat-tab>

@@ -1,4 +1,4 @@
-import { PassInUse } from './PassInUse';
+import { ActivePass } from './ActivePass';
 import { Service } from './Service';
 
 export interface Income {
@@ -9,7 +9,7 @@ export interface Income {
     createdAt: Date;
     userId: string;
     passInUseId?: string;
-    passInUse?: PassInUse;
+    passInUse?: ActivePass;
     serviceId?: string;
     service?: Service;
     updatedAt: Date;

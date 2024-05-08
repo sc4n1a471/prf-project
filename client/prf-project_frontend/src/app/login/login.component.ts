@@ -52,7 +52,7 @@ export class LoginComponent {
 						console.log('Logged in')
 						// this.authService.setUserStatus(true)
 						// this.userService.loadLoggedInUser('login.component / login')
-						this.router.navigate(['/user-management'])
+						this.router.navigate(['/main'])
 					}
 				},
 				error: (err) => {

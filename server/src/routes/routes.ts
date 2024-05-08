@@ -4,7 +4,7 @@ import * as auth from "../controllers/auth.controller"
 import * as service from "../controllers/service.controller"
 import * as dp from "../controllers/dp.controller"
 import * as pass from "../controllers/pass.controller"
-import * as passInUse from "../controllers/passInUse.controller"
+import * as passInUse from "../controllers/activePass.controller"
 import * as income from "../controllers/income.controller"
 
 const router = Router()
