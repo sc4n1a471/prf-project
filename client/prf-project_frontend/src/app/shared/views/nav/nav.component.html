@@ -4,13 +4,6 @@
     <span>Főoldal</span>
   </a>
 
-  <mat-divider></mat-divider>
-
-  <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/new-something" routerLinkActive="active-list-item" (click)="close()">
-    <mat-icon>add_rounded</mat-icon>
-    <span>Új adat</span>
-  </a>
-
   <mat-divider *ngIf="isAuthenticated && isAdmin"></mat-divider>
 
   <a *ngIf="isAuthenticated && isAdmin" mat-list-item routerLink="/users" routerLinkActive="active-list-item" (click)="close()">

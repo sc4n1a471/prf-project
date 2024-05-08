@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Új emberke hozzáadása</h2>
+
+<mat-dialog-content align="center">
+	<form [formGroup]="newUserForm">
+		<mat-form-field>
+			<mat-label>Név: </mat-label>
+			<input matInput type="text" formControlName="name" />
+		</mat-form-field>
+
+		<br />
+
+		<mat-checkbox formControlName="is_admin">
+			Admin?
+		</mat-checkbox>
+
+		<br />
+
+		<mat-form-field>
+			<mat-label>Email: </mat-label>
+			<input matInput type="text" formControlName="email" />
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="createUser()"
+		[disabled]="!newUserForm.valid"
+	>
+		Felhasználó hozzáadás
+	</button>
+</mat-dialog-actions>

@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
+	ReactiveFormsModule,
 	UntypedFormControl,
 	UntypedFormGroup,
 	Validators,
-	ReactiveFormsModule,
 } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { Router, RouterModule } from '@angular/router'
-import { AuthService } from '../shared/services/auth.service'
+import { MatButtonModule } from '@angular/material/button'
 import { MatCard } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIcon } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import { MatButtonModule } from '@angular/material/button'
+import { Router, RouterModule } from '@angular/router'
+import { AuthService } from '../shared/services/auth.service'
 
 @Component({
 	selector: 'app-login',
@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button'
 		MatFormFieldModule,
 		MatIcon,
 		MatInputModule,
-		MatButtonModule
+		MatButtonModule,
 	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss',
@@ -38,27 +38,13 @@ export class LoginComponent {
 
 	constructor(private router: Router, private authService: AuthService) {}
 
-	login() {
+	async login() {
 		console.log('Logging in')
 
-		this.authService
-			.login(
-				this.loginForm.get('email')?.value,
-				this.loginForm.get('passwd')?.value
-			)
-			.subscribe({
-				next: (data) => {
-					if (data) {
-						console.log('Logged in')
-						// this.authService.setUserStatus(true)
-						// this.userService.loadLoggedInUser('login.component / login')
-						this.router.navigate(['/main'])
-					}
-				},
-				error: (err) => {
-					console.log(err)
-				},
-			})
+		await this.authService.login(
+			this.loginForm.get('email')?.value,
+			this.loginForm.get('passwd')?.value
+		)
 	}
 
 	navigate(to: string) {

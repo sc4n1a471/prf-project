@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, signal } from '@angular/core'
-import { User } from '../model/User'
-import { endpoints } from '../../../environments/endpoints'
-import { map, catchError, of } from 'rxjs'
 import { Router } from '@angular/router'
+import { catchError, lastValueFrom, map, of } from 'rxjs'
+import { endpoints } from '../../../environments/endpoints'
+import { User, UserLoginResponse } from '../model/User'
 
 @Injectable({
 	providedIn: 'root',
@@ -11,21 +11,34 @@ import { Router } from '@angular/router'
 export class AuthService {
 	isAuthenticated = signal<boolean>(false)
 	isAdmin = signal<boolean>(false)
+	userId = signal<string>('')
 
-	constructor(
-		private http: HttpClient,
-		private router: Router
-	) {}
+	constructor(private http: HttpClient, private router: Router) {}
 
-	login(email: string, password: string) {
+	async login(email: string, password: string) {
 		const body = {
 			username: email,
 			password: password,
 		}
 
-		return this.http.post(endpoints.login, body, {
-			withCredentials: true,
-		})
+		try {
+			const loginRespinse = await lastValueFrom(
+				this.http.post<UserLoginResponse>(endpoints.login, body, {
+					withCredentials: true,
+				})
+			)
+
+			if (loginRespinse) {
+				console.log('Logged in')
+				this.userId.set(loginRespinse.userId)
+				this.isAdmin.set(loginRespinse.isAdmin)
+				this.isAuthenticated.set(true)
+
+				this.router.navigate(['/main'])
+			}
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	register(user: User) {
@@ -39,6 +52,7 @@ export class AuthService {
 	logout() {
 		this.isAdmin.set(false)
 		this.isAuthenticated.set(false)
+		this.userId.set('')
 		return this.http.post(
 			endpoints.logout,
 			{},
@@ -46,15 +60,17 @@ export class AuthService {
 		)
 	}
 
-	async setUserStatus() {
-		console.log('Setting user status');
-		
+	setUserStatus() {
+		console.log('Setting user status')
+
 		this.checkPermissions().pipe(
-			map((object: any) => {				
+			map((object: any) => {
 				if (!object.isAuthenticated) {
 					this.isAuthenticated.set(false)
 					this.isAdmin.set(false)
+					this.userId.set('')
 				} else {
+					this.userId.set(object.userId)
 					this.isAuthenticated.set(true)
 					if (object.isAdmin) {
 						console.log('User is admin')
@@ -66,12 +82,13 @@ export class AuthService {
 					}
 				}
 			}),
-	
+
 			catchError((error) => {
 				console.log(error)
 				this.router.navigateByUrl('/login')
 				this.isAdmin.set(false)
 				this.isAuthenticated.set(false)
+				this.userId.set('')
 				return of(false)
 			})
 		)

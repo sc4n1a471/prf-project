@@ -40,6 +40,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 			r.navigateByUrl('/login')
 			authService.isAdmin.set(false)
 			authService.isAuthenticated.set(false)
+			authService.userId.set('')
 			return of(false)
 		})
 	)

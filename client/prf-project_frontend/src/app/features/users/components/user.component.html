@@ -10,7 +10,7 @@
 			>
 				<mat-expansion-panel-header>
 					<mat-panel-title>
-						{{ user.name }}
+						{{ user.name !== undefined ? user.name : "Nincs az emberkének neve" }}
 					</mat-panel-title>
 
 					<mat-panel-description>
@@ -18,9 +18,19 @@
 					</mat-panel-description>
 				</mat-expansion-panel-header>
                 <span>
-					Itten majd lenni more info about {{ user.email }}
+					Itten majd lenni more info about {{ user.email }}, like
+					<!-- In the production app, I will use a reusable component that lists the 
+						selected attributes of the listed data types -->
+				</span>
+				<br/>
+				<span>
+					Admin: {{ user.isAdmin }}
 				</span>
 			</mat-expansion-panel>
 		</mat-tab>
 	</mat-tab-group>
+
+	<button class="newFAB" mat-fab color="primary" (click)="openNewUserDialog()">
+		<mat-icon>add</mat-icon>
+	  </button>
 </div>

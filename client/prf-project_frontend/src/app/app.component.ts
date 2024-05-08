@@ -52,7 +52,9 @@ export class AppComponent {
 				if (!object.isAuthenticated) {
 					this.authService.isAuthenticated.set(false)
 					this.authService.isAdmin.set(false)
+					this.authService.userId.set('')
 				} else {
+					this.authService.userId.set(object.userId)
 					this.authService.isAuthenticated.set(true)
 					if (object.isAdmin) {
 						console.log('User is admin')
@@ -67,6 +69,7 @@ export class AppComponent {
 					console.log(error)
 					this.authService.isAdmin.set(false)
 					this.authService.isAuthenticated.set(false)
+					this.authService.userId.set('')
 					return of(false)
 				})
 			},

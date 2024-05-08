@@ -1,18 +1,14 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav [autoFocus]="false">
-      <app-nav
-        (onCloseSidenav)="onCloseSidenav($event, sidenav)"
-      ></app-nav>
-    </mat-sidenav>
-    <mat-sidenav-content class="he">
-      <mat-toolbar color="primary">
-        <button
-          mat-icon-button
-          (click)="toggleSidenav(sidenav)">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </mat-toolbar>
-      <!-- <span *ngIf="isLoading">
+	<mat-sidenav #sidenav [autoFocus]="false">
+		<app-nav (onCloseSidenav)="onCloseSidenav($event, sidenav)"></app-nav>
+	</mat-sidenav>
+	<mat-sidenav-content class="he">
+		<mat-toolbar color="primary">
+			<button mat-icon-button (click)="toggleSidenav(sidenav)">
+				<mat-icon>menu</mat-icon>
+			</button>
+		</mat-toolbar>
+		<!-- <span *ngIf="isLoading">
            <p class="overlay"></p>
            <span class="spinner">
              <mat-spinner
@@ -20,7 +16,6 @@
              ></mat-spinner>
            </span>
          </span> -->
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

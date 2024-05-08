@@ -13,12 +13,16 @@ async function login(req: Request, res: Response, next: NextFunction) {
 			if (!user) {
 				res.status(400).send("User not found.")
 			} else {
-				req.login(user, (err: string | null) => {
+				req.login(user, async (err: string | null) => {
 					if (err) {
 						console.log(err)
 						res.status(500).send("Internal server error.")
 					} else {
-						res.status(200).send(user)
+						const isAdmin = await checkAdmin(req, res)
+						res.status(200).send({
+							userId: user,
+							isAdmin: isAdmin
+						})
 					}
 				})
 			}
@@ -44,10 +48,10 @@ async function checkAuth(req: Request, res: Response) {
 	if (req.isAuthenticated()) {
 		console.log("User is authenticated.");
 		const isAdmin = await checkAdmin(req, res)
-		res.status(200).send({isAuthenticated: true, isAdmin: isAdmin})
+		res.status(200).send({isAuthenticated: true, isAdmin: isAdmin, userId: req.user})
 	} else {
 		console.log("User is not authenticated.");
-		res.status(401).send({isAuthenticated: false, isAdmin: false})
+		res.status(401).send({isAuthenticated: false, isAdmin: false, userId: ""})
 	}
 }
 
