@@ -12,3 +12,10 @@ export interface Service {
     prevServiceId: string;
     dynamicPrices: DynamicPrice[];
 }
+
+export interface ServiceCreate {
+    name: string;
+    comment: string;
+    price: number;
+    dynamicPrices?: DynamicPrice[];
+}

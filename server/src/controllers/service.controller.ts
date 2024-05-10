@@ -56,8 +56,11 @@ async function createService(req: Request, res: Response) {
         const comment = req.body.comment
         const userId = req.user
 
-        const dynamicPrices = req.body.dynamicPrices
+        const dynamicPrices = req.body.dynamic_prices
+        console.log(dynamicPrices);
         if (dynamicPrices) {
+            console.log("lenni dp");
+            
             const dps = await dp.controller.createDynamicPrices(dynamicPrices, userId.toString())
             if (!dps) {
                 res.status(500).send("Internal server error.")

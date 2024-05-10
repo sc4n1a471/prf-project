@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from "@angular/material/input";
+import { MatDialog } from '@angular/material/dialog';
+import { NewServiceDialogComponent } from './new-service-dialog/new-service-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -26,7 +29,7 @@ import { MatInputModule } from "@angular/material/input";
 		MatFormFieldModule,
 		MatSelectModule,
 		MatCardModule,
-		
+		MatButtonModule
 	],
 	templateUrl: './service.component.html',
 	styleUrl: './service.component.scss',
@@ -37,6 +40,7 @@ export class ServiceComponent {
 	constructor(
 		private serviceService: ServiceService,
 		private fb:FormBuilder,
+		private newServiceDialog: MatDialog
 	) {
 		effect(() => {
 			this.services = this.serviceService.services()
@@ -66,4 +70,8 @@ export class ServiceComponent {
         // this.editedServiceDynamicPrices.reset()
         // this.prices.clear()
     }
+
+	openNewServiceDialog() {
+		this.newServiceDialog.open(NewServiceDialogComponent)
+	}
 }

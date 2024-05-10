@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>Új szolgáltatás hozzáadása</h2>
+
+<mat-dialog-content align="center">
+	<form [formGroup]="newServiceForm">
+
+        <mat-form-field>
+          <mat-label>Szolgáltatásnév: </mat-label>
+          <input matInput type="text" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ár / alkalom: </mat-label>
+          <input matInput type="number" formControlName="price" />
+          <span matSuffix>Ft</span>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+          <mat-label>Megjegyzés: </mat-label>
+          <input matInput type="text" formControlName="comment" />
+        </mat-form-field>
+
+        <br>
+
+        <mat-checkbox (change)="dynamicPriceTrigger()">Dinamikus ár</mat-checkbox>
+
+        <div *ngIf="dynamicPrice === 'open'">
+          <mat-card class="add-prices-form" [@dynamicPriceCardOpen]="dynamicPrice">
+            <div [formGroup]="newServiceDynamicPrices">
+              <ng-container formArrayName="prices">
+                <ng-container *ngFor="let priceForm of prices.controls; let i = index">
+                  <div [formGroupName]="i">
+                    <div class="prices_div_forms">
+
+                      <mat-form-field>
+                        <mat-label>Résztvevők:</mat-label>
+                        <input matInput type="number" formControlName="attendees" />
+                      </mat-form-field>
+
+                      <mat-form-field>
+                        <mat-label>Ár: </mat-label>
+                        <input matInput type="number" formControlName="price" />
+                        <span matSuffix>Ft</span>
+                      </mat-form-field>
+
+                      <button mat-icon-button color="warn" (click)="deletePrice(i)">
+                        <mat-icon>delete_rounded</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <button mat-mini-fab (click)="addPrice()">
+                <mat-icon class="add-course-btn">add</mat-icon>
+              </button>
+
+            </div>
+          </mat-card>
+        </div>
+
+      </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="createService()"
+		[disabled]="!newServiceForm.valid"
+	>
+		Szolgáltatás hozzáadás
+	</button>
+</mat-dialog-actions>

@@ -1,7 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { Service } from '../../../shared/model/Service';
+import { Service, ServiceCreate } from '../../../shared/model/Service';
 import { HttpClient } from '@angular/common/http';
 import { endpoints } from '../../../../environments/endpoints';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,5 +23,27 @@ export class ServiceService {
 				console.error(err)
 			}
 		})
+	}
+
+	async createService(service: ServiceCreate) {
+		try {
+			const response: Service | string = await lastValueFrom(
+				this.http.post<Service>(endpoints.createService, service, {
+					withCredentials: true
+				})
+			)
+
+			console.log(response);
+			if (typeof response == 'object') {
+				this.services.set([...this.services(), response])
+				return true
+			} else {
+				console.error(response)
+				return false
+			}
+		} catch (error) {
+			console.error(error)
+			return false
+		}
 	}
 }
