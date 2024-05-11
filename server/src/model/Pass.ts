@@ -27,4 +27,5 @@ const PassSchema: Schema<IPass> = new mongoose.Schema({
     services: [{ type: Schema.Types.ObjectId, ref: "Service" }],
 })
 
+
 export const Pass: Model<IPass> = mongoose.model<IPass>("Pass", PassSchema)

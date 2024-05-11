@@ -19,6 +19,8 @@
 
 				<br />
 				<span> Itten majd lenni more info about {{ pass.name }} </span>
+				<br />
+				<span>{{ pass._id }}</span>
 			</mat-expansion-panel>
 		</mat-tab>
 		<mat-tab label="Aktív Bérletek">
@@ -34,7 +36,9 @@
 					</mat-panel-title>
 
 					<mat-panel-description>
-						{{ activePass.pass.price | currency : "HUF" }}
+						{{ activePass.occasions }} /
+						{{ activePass.pass.occasionLimit }} |
+						{{ activePass.user.email }}
 					</mat-panel-description>
 				</mat-expansion-panel-header>
 
@@ -50,7 +54,7 @@
 		class="newFAB"
 		mat-fab
 		color="primary"
-		(click)="openNewPassDialog()"
+		(click)="openNewPassRelatedDialog()"
 	>
 		<mat-icon>add</mat-icon>
 	</button>

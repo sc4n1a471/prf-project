@@ -1,0 +1,108 @@
+form {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 50%;
+    margin: 1%;
+}
+
+mat-card {
+    width: 70%;
+    margin: 5%;
+    padding-bottom: 2%;
+}
+
+h1 {
+    margin: 2%;
+}
+
+form {
+    overflow-y: clip;
+}
+
+.cost_div {
+    padding: 2%;
+}
+
+.cost_div mat-card {
+    padding: 10%;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.cost_div mat-form-field {
+    align-self: center;
+}
+
+.prices_div_forms {
+    column-count: 3;
+    display: flex;
+}
+
+.prices_div_forms mat-form-field {
+    width: 100%;
+}
+
+.prices_div_forms button {
+    margin-top: 2%;
+}
+
+.add-prices-card {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 2%;
+    padding: 1%;
+    opacity: 0;
+}
+
+mat-checkbox {
+    margin-bottom: 2%;
+}
+
+add-prices-form {
+    padding-bottom: 2%;
+}
+
+@media (min-width: 800px) {
+    .cost_div {
+        column-count: 2;
+    }
+
+    .cost_div mat-form-field {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 800px) {
+    mat-card {
+        width: 90%;
+        margin: 3%;
+        align-items: center;
+        /*padding: 3%;*/
+    }
+    mat-form-field {
+        width: 80%;
+        margin: 1%;
+        align-self: center;
+    }
+
+    .new-form {
+        margin-top: 10%;
+    }
+
+    .cost_div mat-card {
+        padding: 10%;
+        width: 100% !important;
+        margin-bottom: 10% !important;
+    }
+
+    .add-prices-form {
+        width: 100%;
+    }
+
+    .prices_div_forms {
+        width: 65%;
+        margin: auto;
+    }
+}

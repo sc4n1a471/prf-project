@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose"
 import { IPass } from "./Pass"
+import { IUser } from "./User"
 import { PopulatedDoc } from "mongoose"
 
 export interface IPassInUse extends Document {
@@ -10,6 +11,7 @@ export interface IPassInUse extends Document {
     userId: Schema.Types.ObjectId
     passId: Schema.Types.ObjectId
     pass: PopulatedDoc<IPass & Document>
+    user: PopulatedDoc<IUser & Document>
     payerId: Schema.Types.ObjectId
     validFrom: Date
     validUntil: Date
@@ -25,7 +27,25 @@ const PassInUseSchema: Schema<IPassInUse> = new mongoose.Schema({
     payerId: { type: Schema.Types.ObjectId, required: true },
     validFrom: { type: Date, required: false },
     validUntil: { type: Date, required: false },
-    pass: { type: Schema.Types.ObjectId, ref: "Pass" },
+    // pass: { type: Schema.Types.ObjectId, ref: "Pass" },
+    // user: { type: Schema.Types.ObjectId, ref: "User" },
+}, {
+    toObject: {virtuals:true},
+    toJSON: {virtuals:true} 
+})
+
+PassInUseSchema.virtual('pass', {
+    ref: 'Pass',
+    localField: 'passId',
+    foreignField: '_id',
+    justOne: true
+})
+
+PassInUseSchema.virtual('user', {
+    ref: 'User',
+    localField: 'payerId',
+    foreignField: '_id',
+    justOne: true
 })
 
 export const PassInUse: Model<IPassInUse> = mongoose.model<IPassInUse>("PassInUse", PassInUseSchema)

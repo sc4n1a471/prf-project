@@ -10,16 +10,18 @@ async function getPassesInUse(req: Request, res: Response) {
     if (req.isAuthenticated()) {
         const isAdmin = await auth.controller.checkAdmin(req, res);
         if (isAdmin) {
-            PassInUse.find({userId: req.user, isActive: true}).populate('pass').exec()
+            PassInUse.find({userId: req.user, isActive: true}).populate('pass').populate('user').exec()
             .then(data => {
+                console.log(data);
                 res.status(200).send(data);
             }).catch(error => {
                 console.log(error);
                 res.status(500).send('Internal server error.');
             })
         } else {
-            PassInUse.find({payerId: req.user, isActive: true}).populate('pass').exec()
+            PassInUse.find({payerId: req.user, isActive: true}).populate('pass').populate('user').exec()
             .then(data => {
+                console.log(data);
                 res.status(200).send(data);
             }).catch(error => {
                 console.log(error);
@@ -56,10 +58,10 @@ async function createPassInUse(req: Request, res: Response) {
 
         const comment = req.body.comment
         const userId = req.user
-        const passId = req.body.passId
-        const payerId = req.body.payerId
-        const validFrom = req.body.validFrom
-        const validUntil = req.body.validUntil
+        const passId = req.body.pass_id
+        const payerId = req.body.payer_id
+        const validFrom = req.body.valid_from
+        const validUntil = req.body.valid_until
 
         const passInUse = new PassInUse({
             comment,
@@ -86,6 +88,7 @@ async function createPassInUse(req: Request, res: Response) {
                 name: 'Bérlet vásárlás',
                 isPaid: true
             });
+            
             const incomeSaveQuery = income.controller.createIncome(newIncome);
             if (!incomeSaveQuery) {
                 res.status(500).send('Internal server error.');

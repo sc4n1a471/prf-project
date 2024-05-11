@@ -14,6 +14,8 @@ import { ActivePass } from '../../../shared/model/ActivePass'
 import { Pass } from '../../../shared/model/Pass'
 import { PassService } from '../services/pass.service'
 import { NewPassDialogComponent } from './new-pass-dialog/new-pass-dialog.component'
+import { NewActivePassDialogComponent } from './new-active-pass-dialog/new-active-pass-dialog.component'
+
 
 @Component({
 	selector: 'app-pass',
@@ -39,7 +41,8 @@ export class PassComponent {
 
 	constructor(
 		private passService: PassService,
-		private newPassDialog: MatDialog
+		private newPassDialog: MatDialog,
+		private newActivePassDialog: MatDialog
 	) {
 		effect(() => {
 			this.passes = this.passService.passes()
@@ -57,8 +60,9 @@ export class PassComponent {
 
 	tabLabels = {
 		passes: 'Bérletek',
-		activePasses: 'Aktív bérletek',
+		activePasses: 'Aktív Bérletek',
 	}
+	currentTab = this.tabLabels.passes
 
 	ngOnInit() {
 		this.passService.getPasses()
@@ -67,9 +71,11 @@ export class PassComponent {
 	tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
 		switch (tabChangeEvent.tab.textLabel) {
 			case this.tabLabels.passes:
+				this.currentTab = this.tabLabels.passes
 				this.passService.getPasses()
 				break
 			case this.tabLabels.activePasses:
+				this.currentTab = this.tabLabels.activePasses
 				this.passService.getActivePasses()
 				break
 			default:
@@ -91,7 +97,13 @@ export class PassComponent {
 		this.isDeleting = false
 	}
 
-	openNewPassDialog() {
-		this.newPassDialog.open(NewPassDialogComponent)
+	openNewPassRelatedDialog() {
+		if (this.currentTab === this.tabLabels.passes) {
+			console.log('Opening new pass dialog');
+			this.newPassDialog.open(NewPassDialogComponent)
+		} else {
+			console.log('Opening new active pass dialog');
+			this.newActivePassDialog.open(NewActivePassDialogComponent)
+		}
 	}
 }

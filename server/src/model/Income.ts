@@ -30,6 +30,7 @@ const IncomeSchema: Schema<IIncome> = new mongoose.Schema({
     updatedAt: { type: Date, required: false, default: Date.now },
     payerId: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
+    amount: { type: Number, required: true },
     isPaid: { type: Boolean, required: true, default: false },
 })
 

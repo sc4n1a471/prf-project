@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Pass, PassCreate } from '../../../shared/model/Pass';
 import { HttpClient } from '@angular/common/http';
 import { endpoints } from '../../../../environments/endpoints';
-import { ActivePass } from '../../../shared/model/ActivePass';
+import { ActivePass, ActivePassCreate } from '../../../shared/model/ActivePass';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({
@@ -32,6 +32,8 @@ export class PassService {
 			withCredentials: true
 		}).subscribe({
 			next: (data) => {
+				console.log(data);
+				
 				this.activePasses.set(data)
 			},
 			error: (err) => {
@@ -51,6 +53,28 @@ export class PassService {
 			console.log(response);
 			if (typeof response == 'object') {
 				this.passes.set([...this.passes(), response])
+				return true
+			} else {
+				console.error(response)
+				return false
+			}
+		} catch (error) {
+			console.error(error)
+			return false
+		}
+	}
+
+	async createActivePass(newActivePass: ActivePassCreate) {
+		try {
+			const response: ActivePass | string = await lastValueFrom(
+				this.http.post<ActivePass>(endpoints.createActivePass, newActivePass, {
+					withCredentials: true
+				})
+			)
+
+			console.log(response);
+			if (typeof response == 'object') {
+				this.getActivePasses()
 				return true
 			} else {
 				console.error(response)

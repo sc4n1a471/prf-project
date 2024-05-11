@@ -6,7 +6,7 @@ import { Service } from "./Service"
 
 const SALT_FACTOR = 10
 
-interface IUser extends Document {
+export interface IUser extends Document {
     createdAt: Date
     email: string
     isActive: boolean
