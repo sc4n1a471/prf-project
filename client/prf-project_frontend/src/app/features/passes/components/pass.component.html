@@ -18,12 +18,10 @@
 				</mat-expansion-panel-header>
 
 				<br />
-				<span>
-					Itten majd lenni more info about {{ pass.name }}
-				</span>
+				<span> Itten majd lenni more info about {{ pass.name }} </span>
 			</mat-expansion-panel>
 		</mat-tab>
-        <mat-tab label="Aktív Bérletek">
+		<mat-tab label="Aktív Bérletek">
 			<!-- <app-no-records [data$]="services$" [loading]="isServiceListLoading"></app-no-records> -->
 			<mat-expansion-panel
 				(afterCollapse)="onCollapse()"
@@ -47,4 +45,13 @@
 			</mat-expansion-panel>
 		</mat-tab>
 	</mat-tab-group>
+
+	<button
+		class="newFAB"
+		mat-fab
+		color="primary"
+		(click)="openNewPassDialog()"
+	>
+		<mat-icon>add</mat-icon>
+	</button>
 </div>

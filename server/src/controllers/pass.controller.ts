@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { Pass } from "../model/Pass"
 import * as auth from "./auth.controller"
 import * as dp from "./dp.controller"
+import mongoose from "mongoose"
 
 async function getPass(req: Request, res: Response) {
     if (req.isAuthenticated()) {
@@ -67,6 +68,7 @@ async function createPass(req: Request, res: Response) {
             duration: duration,
             userId: userId,
             services: serviceIds,
+            prevPassId: new mongoose.Types.ObjectId(), // random objectID for now
         })
 
         newPass
@@ -109,6 +111,7 @@ async function updatePass(req: Request, res: Response) {
             duration: duration,
             userId: userId,
             services: serviceIds,
+            prevPassId: passId, // here we can add the previous pass id, currently it is set to the same pass id
         })
             .then((data) => {
                 res.status(200).send(data)

@@ -20,6 +20,7 @@ export const endpoints = {
 
 	// PASSES
 	getPasses: 'http://localhost:5005/prf/passes',
+	createPass: 'http://localhost:5005/prf/passes/',
 
 	// ACTIVE PASSES
 	getActivePasses: 'http://localhost:5005/prf/passes-in-use',

@@ -25,9 +25,9 @@
 
         <mat-checkbox (change)="dynamicPriceTrigger()">Dinamikus ár</mat-checkbox>
 
-        <div *ngIf="dynamicPrice === 'open'">
-          <mat-card class="add-prices-form" [@dynamicPriceCardOpen]="dynamicPrice">
-            <div [formGroup]="newServiceDynamicPrices">
+        <ng-container *ngIf="dynamicPrice === 'open'">
+          <mat-card class="add-prices-card" [@dynamicPriceCardOpen]="dynamicPrice">
+            <div class="add-prices-form" [formGroup]="newServiceDynamicPrices">
               <ng-container formArrayName="prices">
                 <ng-container *ngFor="let priceForm of prices.controls; let i = index">
                   <div [formGroupName]="i">
@@ -58,7 +58,7 @@
 
             </div>
           </mat-card>
-        </div>
+        </ng-container>
 
       </form>
 </mat-dialog-content>

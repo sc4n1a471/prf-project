@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Új bérlet hozzáadása</h2>
+
+<mat-dialog-content align="center">
+	<form [formGroup]="newPassForm">
+		<div>
+			<!-- <app-no-records
+            [loading]="isNewPassServicesLoading"
+            [type]="'individual'"
+          ></app-no-records> -->
+			<mat-form-field *ngIf="!isNewPassServicesLoading">
+				<mat-label>Szolgáltatás(ok)</mat-label>
+				<mat-select formControlName="service_ids" multiple>
+					<mat-option
+						*ngFor="let service of services"
+						[value]="service._id"
+					>
+						{{ service.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<mat-form-field>
+			<mat-label>Bérlet neve</mat-label>
+			<input matInput type="text" formControlName="name" />
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Ár</mat-label>
+			<input matInput type="number" formControlName="price" />
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Alkalom limit</mat-label>
+			<input matInput type="number" formControlName="occasion_limit" />
+		</mat-form-field>
+
+		<form [formGroup]="newPassFormTime">
+			<mat-form-field>
+				<mat-label>Időtartam</mat-label>
+				<mat-select formControlName="timeInterval">
+					<mat-option
+						*ngFor="let interval of timeIntervals"
+						[value]="interval"
+					>
+						{{ interval }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Mennyiség</mat-label>
+				<mat-select formControlName="timeType">
+					<mat-option
+						*ngFor="let timeType of timeTypes"
+						[value]="timeType"
+					>
+						{{ timeType }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</form>
+
+		<mat-form-field>
+			<mat-label>Megjegyzés</mat-label>
+			<input matInput type="text" formControlName="comment" />
+		</mat-form-field>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="createPass()"
+		[disabled]="!newPassForm.valid"
+	>
+		Bérlet hozzáadás
+	</button>
+</mat-dialog-actions>

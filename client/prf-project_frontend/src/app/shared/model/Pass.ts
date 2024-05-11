@@ -13,3 +13,12 @@ export interface Pass {
     price: number;
     services: Service[];
 }
+
+export interface PassCreate {
+    name: string;
+    price: number;
+    occasion_limit: number;
+    comment: string;
+    duration: string;
+    service_ids: string[];
+}
