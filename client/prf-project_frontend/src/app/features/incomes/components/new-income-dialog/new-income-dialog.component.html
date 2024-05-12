@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>Új bevétel hozzáadása</h2>
+
+<mat-dialog-content align="center">
+	<form [formGroup]="newIncomeForm">
+        
+        <!-- TODO: Move ActivePass creation here -->
+
+		<div *ngIf="incomeType == 'service'">
+			<!-- <app-no-records
+				[loading]="isNewIncomeServicesLoading"
+				[type]="'individual'"
+			></app-no-records> -->
+			<mat-form-field
+				appearance="fill"
+				*ngIf="!isNewIncomeServicesLoading"
+			>
+				<mat-label>Szolgáltatás</mat-label>
+				<mat-select formControlName="service_id">
+					<mat-option
+						*ngFor="let service of services"
+						[value]="service._id"
+					>
+						{{ service.name }}
+						-
+						{{ service.price }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<div>
+				<!-- <app-no-records
+					[loading]="isNewIncomeUsersLoading"
+					[type]="'individual'"
+				></app-no-records> -->
+				<mat-form-field
+					appearance="fill"
+					*ngIf="!isNewIncomeUsersLoading"
+				>
+					<mat-label>Felhasználó(k)</mat-label>
+					<mat-select formControlName="payer_ids" multiple>
+						<mat-option
+							*ngFor="let user of users"
+							[value]="user._id"
+						>
+							{{ user.name }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<mat-form-field>
+			<mat-label>Bevétel létrehozási dátuma</mat-label>
+			<input
+				matInput
+				[matDatepicker]="pickerIncomeCreationDate"
+				formControlName="created_at"
+			/>
+			<mat-datepicker-toggle
+				matIconSuffix
+				[for]="pickerIncomeCreationDate"
+			></mat-datepicker-toggle>
+			<mat-datepicker #pickerIncomeCreationDate></mat-datepicker>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Hozzászólás: </mat-label>
+			<input matInput type="text" formControlName="comment" />
+		</mat-form-field>
+
+		<br />
+
+		<mat-checkbox formControlName="paid"> Fizetve? </mat-checkbox>
+	</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="createIncome()"
+		[disabled]="!newIncomeForm.valid"
+	>
+		Bevétel hozzáadás
+	</button>
+</mat-dialog-actions>

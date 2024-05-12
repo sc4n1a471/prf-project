@@ -12,7 +12,6 @@ async function getPassesInUse(req: Request, res: Response) {
         if (isAdmin) {
             PassInUse.find({userId: req.user, isActive: true}).populate('pass').populate('user').exec()
             .then(data => {
-                console.log(data);
                 res.status(200).send(data);
             }).catch(error => {
                 console.log(error);
@@ -21,7 +20,6 @@ async function getPassesInUse(req: Request, res: Response) {
         } else {
             PassInUse.find({payerId: req.user, isActive: true}).populate('pass').populate('user').exec()
             .then(data => {
-                console.log(data);
                 res.status(200).send(data);
             }).catch(error => {
                 console.log(error);
@@ -136,7 +134,11 @@ async function deletePassInUse(req: Request, res: Response) {
 
 // Helper functions
 async function usePassInUse(payerId: mongoose.Schema.Types.ObjectId, serviceId: mongoose.Schema.Types.ObjectId): Promise<boolean | null> {
-    const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate('pass').populate('services').exec();
+    // const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate('pass').populate('services').exec();
+    const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate({
+        path: 'pass',
+        populate: { path: 'services' }
+      }).exec();
     if (!passesInUse) {
         return null;
     }
