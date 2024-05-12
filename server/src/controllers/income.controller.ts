@@ -89,6 +89,8 @@ async function createIncome(income: IIncome, numOfAttendees: number = 1) {
 		}
 
 		if (!usePassInUseResult) {
+			income.amount = service.price
+			
 			// DynamicPrice handling
 			if (service.dynamicPrices.length > 0) {
 				service.dynamicPrices.forEach((dp: IDynamicPrice) => {
@@ -97,8 +99,6 @@ async function createIncome(income: IIncome, numOfAttendees: number = 1) {
 						console.log("Dynamic price found: " + dp.price)
 					}
 				})
-			} else {
-				income.amount = service.price
 			}
 		} else {
 			income.amount = 0 // Has valid passInUse

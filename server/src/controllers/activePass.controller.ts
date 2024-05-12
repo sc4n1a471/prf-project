@@ -135,16 +135,14 @@ async function deletePassInUse(req: Request, res: Response) {
 // Helper functions
 async function usePassInUse(payerId: mongoose.Schema.Types.ObjectId, serviceId: mongoose.Schema.Types.ObjectId): Promise<boolean | null> {
     // const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate('pass').populate('services').exec();
-    const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate({
-        path: 'pass',
-        populate: { path: 'services' }
-      }).exec();
+    const passesInUse = await PassInUse.find({payerId: payerId, isActive: true}).populate("pass").exec();
     if (!passesInUse) {
         return null;
     }
 
     for (const passInUse of passesInUse) {
         const valid = await checkPassInUseValidity(passInUse, serviceId);
+        console.log(`PassInUse validity: ${valid}`);
         if (valid) {
             passInUse.occasions += 1;
             const query = await passInUse.save();
@@ -162,22 +160,32 @@ async function checkPassInUseValidity(passInUse: IPassInUse, serviceId: mongoose
     let now = new Date()
 
     if (passInUse.validFrom > now) {
+        console.log(`PassInUse is not valid yet: ${passInUse.validFrom}`);
         return false
     }
 
     if (!passInUse.pass.occasionLimit) {
+        console.log(`PassInUse has no occasion limit, checking expiration date: ${passInUse.validUntil}`);
         if (passInUse.validUntil < now) {
+            console.log(`PassInUse is expired: ${passInUse.validUntil}, invalidating...`);
             await invalidatePassInUse(passInUse._id);
             return false
         }
+        console.log(`PassInUse is valid until: ${passInUse.validUntil}, still valid`);
     } else {
+        console.log(`PassInUse has occasion limit: ${passInUse.pass.occasionLimit}`);
         if (passInUse.validUntil < now || passInUse.occasions >= passInUse.pass.occasionLimit) {
+            console.log(`PassInUse is expired or reached its occasion limit: ${passInUse.validUntil}, ${passInUse.occasions}, invalidating...`);
             await invalidatePassInUse(passInUse._id);
             return false
         }
+        console.log(`PassInUse is valid and has ${passInUse.pass.occasionLimit - passInUse.occasions - 1} occasions left.`)
     }
 
     // Checking if selected service is in the pass' service list
+    console.log('Active pass services:');
+    console.log(passInUse.pass.services);
+    console.log(`Service ID: ${serviceId}`);
     console.log(`Service is included in pass' service list: ${passInUse.pass.services.includes(serviceId)}`);
     if (!passInUse.pass.services.includes(serviceId)) {
         return false
