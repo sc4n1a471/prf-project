@@ -11,3 +11,6 @@ Amik fontosak lehetnek, hogy backend oldalon mind a 4 művelet normálisan megva
 Frontenden mindent lehet létrehozni/listázni, de csak a bevételt lehet törölni és módosítani. Auth kezelés meg minden egyéb is működik.
 
 Ha van időd/kedved bogarászni, megérteni a rendszert, nem tartalak vissza, GLHF. 😉
+
+## Deploy/Demo infók
+TBD
