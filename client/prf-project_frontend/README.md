@@ -1,27 +1,13 @@
-# PrfProjectFrontend
+# Ez lenni prf-project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
+Kis leírás a projektről, hogy egyszerűbb legyen átnézni, ha nagyon szeretnéd
 
-## Development server
+Ez egy saját témával készült dolog, egy már meglévő saját projekthez fogom használni a frontendet, így a backendet 1-1-ben kifogom dobni, mivel már Go-ban korábban meg lett írva. Emiatt a backend részen több dolog van, amit meglehetne normálisabban csinálni (pl tranzakciókat használni a műveletekhez vagy több helyen van TODO/sima leírás, hogy az ott nem úgy van valójában a prod verzióban).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+A frontendet se akartam nagyon teletömni félkész megoldásokkal (bár 1-2 helyen sikerült, pl a css részét teljesen újra kéne rendezni), így ez egy lite verziója a production környezetnek (több helyen csak adatot létrehozni/lekérni tudunk, módosítani/törölni nem)
 
-## Code scaffolding
+Amik fontosak lehetnek, hogy backend oldalon mind a 4 művelet normálisan megvan csinálva minden adattípusra, auth esetén van admin/guest kezelés. Regisztrálni a hagyományos értelemben nem lehet, az elején egy admin usert egy post kéréssel kell létrehozni a `/users/create-admin` endpointra, ahol a bodyban sima JSON-ben username/password/name(optional)-t kell megadni. Más usereket az admin tud létrehozni saját köréhez, ezek csak ehhez az adminhoz tartoznak. Admint is tud létrehozni.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Frontenden mindent lehet létrehozni/listázni, de csak a bevételt lehet törölni és módosítani. Auth kezelés meg minden egyéb is működik.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Ha van időd/kedved bogarászni, megérteni a rendszert, nem tartalak vissza, GLHF. 😉
