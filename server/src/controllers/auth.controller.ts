@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express"
+import { NextFunction, Request, Response } from "express"
 import { User } from "../model/User"
 
 const passport = require("../passport/passport")
@@ -21,7 +21,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
 						const isAdmin = await checkAdmin(req, res)
 						res.status(200).send({
 							userId: user,
-							isAdmin: isAdmin
+							isAdmin: isAdmin,
 						})
 					}
 				})
@@ -46,18 +46,18 @@ async function logout(req: Request, res: Response) {
 
 async function checkAuth(req: Request, res: Response) {
 	if (req.isAuthenticated()) {
-		console.log("User is authenticated.");
+		console.log("User is authenticated.")
 		const isAdmin = await checkAdmin(req, res)
-		res.status(200).send({isAuthenticated: true, isAdmin: isAdmin, userId: req.user})
+		res.status(200).send({ isAuthenticated: true, isAdmin: isAdmin, userId: req.user })
 	} else {
-		console.log("User is not authenticated.");
-		res.status(401).send({isAuthenticated: false, isAdmin: false, userId: ""})
+		console.log("User is not authenticated.")
+		res.status(401).send({ isAuthenticated: false, isAdmin: false, userId: "" })
 	}
 }
 
 async function checkAdminWrapper(req: Request, res: Response) {
-    const isAdmin = await checkAdmin(req, res)
-    res.status(200).send(isAdmin)
+	const isAdmin = await checkAdmin(req, res)
+	res.status(200).send(isAdmin)
 }
 
 async function checkAdmin(req: Request, res: Response): Promise<boolean> {
@@ -82,5 +82,5 @@ export const controller = {
 	logout,
 	checkAuth,
 	checkAdmin,
-    checkAdminWrapper
+	checkAdminWrapper,
 }

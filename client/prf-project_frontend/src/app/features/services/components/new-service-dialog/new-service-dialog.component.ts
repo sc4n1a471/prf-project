@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import {
@@ -20,9 +21,8 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import { ServiceService } from '../../services/service.service'
 import { ServiceCreate } from '../../../../shared/model/Service'
-import { trigger, transition, state, style, animate } from '@angular/animations'
+import { ServiceService } from '../../services/service.service'
 
 @Component({
 	selector: 'app-new-service-dialog',
@@ -85,8 +85,8 @@ export class NewServiceDialogComponent {
 			dynamic_prices: this.newServiceDynamicPrices.value.prices,
 		})
 		let newService: ServiceCreate = this.newServiceForm.value
-		console.log(newService);
-		
+		console.log(newService)
+
 		const success = await this.serviceService.createService(newService)
 
 		if (success) {

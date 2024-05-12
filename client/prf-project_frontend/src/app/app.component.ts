@@ -1,14 +1,13 @@
-import { Component, inject } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { LoginComponent } from './login/login.component'
-import { SignupComponent } from './signup/signup.component'
-import { NavComponent } from './shared/views/nav/nav.component'
+import { Component } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIcon } from '@angular/material/icon'
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatIcon } from '@angular/material/icon'
-import { MatButtonModule } from '@angular/material/button'
+import { RouterOutlet } from '@angular/router'
+import { catchError, of } from 'rxjs'
+import { LoginComponent } from './login/login.component'
 import { AuthService } from './shared/services/auth.service'
-import { map, catchError, of } from 'rxjs'
+import { NavComponent } from './shared/views/nav/nav.component'
 
 @Component({
 	selector: 'app-root',
@@ -16,7 +15,6 @@ import { map, catchError, of } from 'rxjs'
 	imports: [
 		RouterOutlet,
 		LoginComponent,
-		SignupComponent,
 		MatSidenavModule,
 		NavComponent,
 		MatToolbarModule,
@@ -40,15 +38,13 @@ export class AppComponent {
 		}
 	}
 
-	constructor(
-		private authService: AuthService
-	) {}
+	constructor(private authService: AuthService) {}
 
 	ngOnInit() {
 		// This is required for now, but will need to figure out a way to set isAdmin and isAuthenticated in the AuthService
 		// on refresh
 		this.sub = this.authService.checkPermissions().subscribe({
-			next: (object:any) => {
+			next: (object: any) => {
 				if (!object.isAuthenticated) {
 					this.authService.isAuthenticated.set(false)
 					this.authService.isAdmin.set(false)
@@ -64,7 +60,7 @@ export class AppComponent {
 						this.authService.isAdmin.set(false)
 					}
 				}
-		
+
 				catchError((error) => {
 					console.log(error)
 					this.authService.isAdmin.set(false)

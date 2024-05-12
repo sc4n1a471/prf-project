@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatOptionModule } from '@angular/material/core'
 import {
 	MatDialogActions,
 	MatDialogContent,
@@ -18,12 +19,11 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import { Service } from '../../../../shared/model/Service'
-import { ServiceService } from '../../../services/services/service.service'
-import { MatOptionModule } from '@angular/material/core'
-import { PassService } from '../../services/pass.service'
 import { MatSelectModule } from '@angular/material/select'
 import { PassCreate } from '../../../../shared/model/Pass'
+import { Service } from '../../../../shared/model/Service'
+import { ServiceService } from '../../../services/services/service.service'
+import { PassService } from '../../services/pass.service'
 
 @Component({
 	selector: 'app-new-pass-dialog',
@@ -41,7 +41,7 @@ import { PassCreate } from '../../../../shared/model/Pass'
 		MatDialogContent,
 		MatDialogActions,
 		MatOptionModule,
-		MatSelectModule
+		MatSelectModule,
 	],
 	templateUrl: './new-pass-dialog.component.html',
 	styleUrl: './new-pass-dialog.component.scss',
@@ -88,10 +88,13 @@ export class NewPassDialogComponent {
 			service_ids: this.newPassForm.value.service_ids,
 			occasion_limit: this.newPassForm.value.occasion_limit,
 			comment: this.newPassForm.value.comment,
-			duration: this.newPassFormTime.value.timeInterval + " " + this.newPassFormTime.value.timeType
+			duration:
+				this.newPassFormTime.value.timeInterval +
+				' ' +
+				this.newPassFormTime.value.timeType,
 		}
-		console.log(newPass);
-		
+		console.log(newPass)
+
 		const success = await this.passService.createPass(newPass)
 		if (success) {
 			this.dialogRef.close()

@@ -1,8 +1,8 @@
-import { Injectable, signal } from '@angular/core';
-import { Service, ServiceCreate } from '../../../shared/model/Service';
-import { HttpClient } from '@angular/common/http';
-import { endpoints } from '../../../../environments/endpoints';
-import { lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http'
+import { Injectable, signal } from '@angular/core'
+import { lastValueFrom } from 'rxjs'
+import { endpoints } from '../../../../environments/endpoints'
+import { Service, ServiceCreate } from '../../../shared/model/Service'
 
 @Injectable({
 	providedIn: 'root',
@@ -13,27 +13,29 @@ export class ServiceService {
 	constructor(private http: HttpClient) {}
 
 	getServices() {
-		this.http.get<Service[]>(endpoints.getServices, {
-			withCredentials: true
-		}).subscribe({
-			next: (data) => {
-				this.services.set(data)
-			},
-			error: (err) => {
-				console.error(err)
-			}
-		})
+		this.http
+			.get<Service[]>(endpoints.getServices, {
+				withCredentials: true,
+			})
+			.subscribe({
+				next: (data) => {
+					this.services.set(data)
+				},
+				error: (err) => {
+					console.error(err)
+				},
+			})
 	}
 
 	async createService(service: ServiceCreate) {
 		try {
 			const response: Service | string = await lastValueFrom(
 				this.http.post<Service>(endpoints.createService, service, {
-					withCredentials: true
+					withCredentials: true,
 				})
 			)
 
-			console.log(response);
+			console.log(response)
 			if (typeof response == 'object') {
 				this.services.set([...this.services(), response])
 				return true

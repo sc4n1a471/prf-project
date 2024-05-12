@@ -55,7 +55,7 @@ export class NewUserDialogComponent {
 		private authService: AuthService,
 		public dialogRef: MatDialogRef<NewUserDialogComponent>
 	) {
-		this.userId = this.authService.userId()	// TODO: This is not required because the userId is set on backend side
+		this.userId = this.authService.userId() // TODO: This is not required because the userId is set on backend side
 	}
 
 	async createUser() {

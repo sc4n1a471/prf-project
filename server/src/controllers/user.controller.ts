@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import { User } from "../model/User"
 import mongoose from "mongoose"
+import { User } from "../model/User"
 import * as auth from "./auth.controller"
 
 async function getUsers(req: Request, res: Response) {

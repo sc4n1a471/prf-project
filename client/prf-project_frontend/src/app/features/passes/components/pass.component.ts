@@ -13,9 +13,8 @@ import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs'
 import { ActivePass } from '../../../shared/model/ActivePass'
 import { Pass } from '../../../shared/model/Pass'
 import { PassService } from '../services/pass.service'
-import { NewPassDialogComponent } from './new-pass-dialog/new-pass-dialog.component'
 import { NewActivePassDialogComponent } from './new-active-pass-dialog/new-active-pass-dialog.component'
-
+import { NewPassDialogComponent } from './new-pass-dialog/new-pass-dialog.component'
 
 @Component({
 	selector: 'app-pass',
@@ -99,10 +98,10 @@ export class PassComponent {
 
 	openNewPassRelatedDialog() {
 		if (this.currentTab === this.tabLabels.passes) {
-			console.log('Opening new pass dialog');
+			console.log('Opening new pass dialog')
 			this.newPassDialog.open(NewPassDialogComponent)
 		} else {
-			console.log('Opening new active pass dialog');
+			console.log('Opening new active pass dialog')
 			this.newActivePassDialog.open(NewActivePassDialogComponent)
 		}
 	}

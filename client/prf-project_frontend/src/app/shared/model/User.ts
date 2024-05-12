@@ -1,5 +1,5 @@
-import { Pass } from './Pass'
 import { ActivePass } from './ActivePass'
+import { Pass } from './Pass'
 import { Service } from './Service'
 
 export interface User {

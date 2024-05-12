@@ -1,10 +1,10 @@
 import { Request, Response } from "express"
-import { Income, IIncome } from "../model/Income"
-import { Service } from "../model/Service"
-import * as auth from "./auth.controller"
-import * as passInUse from "./activePass.controller"
-import { IDynamicPrice } from "../model/DynamicPrice"
 import mongoose from "mongoose"
+import { IDynamicPrice } from "../model/DynamicPrice"
+import { IIncome, Income } from "../model/Income"
+import { Service } from "../model/Service"
+import * as passInUse from "./activePass.controller"
+import * as auth from "./auth.controller"
 
 async function createIncomeMultipleUsersWrapper(req: Request, res: Response) {
 	if (req.isAuthenticated()) {
@@ -34,7 +34,7 @@ async function createIncomeMultipleUsersWrapper(req: Request, res: Response) {
 
 			if (serviceIds.length > 0) {
 				for (const serviceId of serviceIds) {
-                    income.serviceId = serviceId
+					income.serviceId = serviceId
 
 					income.name = req.body.name
 					if (income.name == null) {
@@ -48,10 +48,9 @@ async function createIncomeMultipleUsersWrapper(req: Request, res: Response) {
 						console.log(error)
 						res.status(500).send("Internal server error.")
 					}
-                }
+				}
 			} else if (passInUseIds.length > 0) {
-
-                // TODO: replace .forEach with for of (however, this backend will not be used in the future, sooo wontfix I guess)
+				// TODO: replace .forEach with for of (however, this backend will not be used in the future, sooo wontfix I guess)
 				passInUseIds.forEach((passInUseId: mongoose.Schema.Types.ObjectId) => {
 					income.passInUseId = passInUseId
 					createIncome(income, payerIds.length)
@@ -67,7 +66,7 @@ async function createIncomeMultipleUsersWrapper(req: Request, res: Response) {
 			}
 		}
 
-        console.log("Incomes created successfully.");
+		console.log("Incomes created successfully.")
 		res.status(201).send({
 			message: "Incomes created successfully.",
 		})
@@ -90,7 +89,7 @@ async function createIncome(income: IIncome, numOfAttendees: number = 1) {
 
 		if (!usePassInUseResult) {
 			income.amount = service.price
-			
+
 			// DynamicPrice handling
 			if (service.dynamicPrices.length > 0) {
 				service.dynamicPrices.forEach((dp: IDynamicPrice) => {

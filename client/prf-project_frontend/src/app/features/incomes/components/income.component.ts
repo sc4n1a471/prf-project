@@ -3,13 +3,18 @@ import { Component, effect } from '@angular/core'
 import {
 	ReactiveFormsModule,
 	UntypedFormControl,
-	UntypedFormGroup
+	UntypedFormGroup,
 } from '@angular/forms'
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core'
+import {
+	DateAdapter,
+	MAT_DATE_FORMATS,
+	MAT_DATE_LOCALE,
+	MatNativeDateModule,
+} from '@angular/material/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatDialog } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -81,11 +86,11 @@ export class IncomeComponent {
 	isDeleting = false
 
 	editedIncome: Income | undefined
-    editedIncomeForm = new UntypedFormGroup({
-        isPaid: new UntypedFormControl(''),
-        comment: new UntypedFormControl(''),
-        createdAt: new UntypedFormControl(''),
-    })
+	editedIncomeForm = new UntypedFormGroup({
+		isPaid: new UntypedFormControl(''),
+		comment: new UntypedFormControl(''),
+		createdAt: new UntypedFormControl(''),
+	})
 
 	constructor(
 		private incomeService: IncomeService,
@@ -121,14 +126,14 @@ export class IncomeComponent {
 		this.editedIncomeForm.reset()
 	}
 	onEditIncome(selectedIncome: Income) {
-        if (!this.isEditing) {
-            if (selectedIncome !== undefined) {
-                this.editedIncome = selectedIncome
-                this.editedIncomeForm.patchValue(selectedIncome)
-            }
-            this.onEditStart()
-        }
-    }
+		if (!this.isEditing) {
+			if (selectedIncome !== undefined) {
+				this.editedIncome = selectedIncome
+				this.editedIncomeForm.patchValue(selectedIncome)
+			}
+			this.onEditStart()
+		}
+	}
 
 	async updateIncome() {
 		if (this.editedIncome !== undefined) {
@@ -136,24 +141,23 @@ export class IncomeComponent {
 				...this.editedIncome,
 				...this.editedIncomeForm.value,
 			}
-			console.log(updatedIncome);
+			console.log(updatedIncome)
 			const success = await this.incomeService.updateIncome(updatedIncome)
 			if (success) {
 				this.onEditFinish()
 			}
 		}
-	
 	}
 
 	// DELETE
 	onDeleteStart() {
-        this.editPanelOpenState = true
-        this.isDeleting = true
-    }
-    onDeleteFinish() {
-        this.editPanelOpenState = false
-        this.isDeleting = false
-    }
+		this.editPanelOpenState = true
+		this.isDeleting = true
+	}
+	onDeleteFinish() {
+		this.editPanelOpenState = false
+		this.isDeleting = false
+	}
 
 	async deleteIncome(incomeId: string) {
 		const success = await this.incomeService.deleteIncome(incomeId)

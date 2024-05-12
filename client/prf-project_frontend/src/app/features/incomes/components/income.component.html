@@ -23,7 +23,7 @@
 				</span>
 
 				<mat-action-row>
-				<!-- <mat-action-row *ngIf="!isMobile"> -->
+					<!-- <mat-action-row *ngIf="!isMobile"> -->
 					<div class="actionButtonsDiv">
 						<button
 							class="actionButtons"
@@ -46,27 +46,48 @@
 
 				<form [formGroup]="editedIncomeForm" *ngIf="isEditing">
 					<mat-form-field>
-					  <mat-label>Megjegyzés: </mat-label>
-					  <input matInput type="text" formControlName="comment" />
+						<mat-label>Megjegyzés: </mat-label>
+						<input matInput type="text" formControlName="comment" />
 					</mat-form-field>
-					<br>
+					<br />
 					<mat-checkbox formControlName="isPaid">
-					  Fizetve?
+						Fizetve?
 					</mat-checkbox>
-					<br>
+					<br />
 					<mat-form-field>
-					  <mat-label>Bevétel létrehozási dátuma</mat-label>
-					  <input matInput [matDatepicker]="pickerIncomeCreationDate" formControlName="createdAt">
-					  <mat-datepicker-toggle matIconSuffix [for]="pickerIncomeCreationDate"></mat-datepicker-toggle>
-					  <mat-datepicker #pickerIncomeCreationDate></mat-datepicker>
+						<mat-label>Bevétel létrehozási dátuma</mat-label>
+						<input
+							matInput
+							[matDatepicker]="pickerIncomeCreationDate"
+							formControlName="createdAt"
+						/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="pickerIncomeCreationDate"
+						></mat-datepicker-toggle>
+						<mat-datepicker
+							#pickerIncomeCreationDate
+						></mat-datepicker>
 					</mat-form-field>
-					<br>
-					<button mat-raised-button color="primary" (click)="updateIncome()">Adat frissítés</button>
-				  </form>
+					<br />
+					<button
+						mat-raised-button
+						color="primary"
+						(click)="updateIncome()"
+					>
+						Adat frissítés
+					</button>
+				</form>
 
 				<p *ngIf="isDeleting">
-					<button mat-raised-button color="warn" (click)="deleteIncome(income._id)">Igen, biztos törölni akarom</button>
-				  </p>
+					<button
+						mat-raised-button
+						color="warn"
+						(click)="deleteIncome(income._id)"
+					>
+						Igen, biztos törölni akarom
+					</button>
+				</p>
 			</mat-expansion-panel>
 		</mat-tab>
 	</mat-tab-group>

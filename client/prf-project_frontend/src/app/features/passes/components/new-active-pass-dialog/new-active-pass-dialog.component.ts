@@ -6,10 +6,11 @@ import {
 	UntypedFormGroup,
 	Validators,
 } from '@angular/forms'
+import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatNativeDateModule, MatOptionModule } from '@angular/material/core'
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule } from '@angular/material/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import {
 	MatDialogActions,
@@ -25,8 +26,6 @@ import { Pass } from '../../../../shared/model/Pass'
 import { User } from '../../../../shared/model/User'
 import { UserService } from '../../../users/services/user.service'
 import { PassService } from '../../services/pass.service'
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core'
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
 // @ts-ignore
 /**
@@ -34,16 +33,16 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
  * {@link https://momentjs.com/docs/#/displaying/format/}
  */
 export const MY_FORMATS = {
-    parse: {
-        dateInput: 'MM/YYYY',
-    },
-    display: {
-        dateInput: 'YYYY MMMM DD',
-        monthYearLabel: 'MMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-    },
-};
+	parse: {
+		dateInput: 'MM/YYYY',
+	},
+	display: {
+		dateInput: 'YYYY MMMM DD',
+		monthYearLabel: 'MMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMMM YYYY',
+	},
+}
 
 @Component({
 	selector: 'app-new-active-pass-dialog',
@@ -63,20 +62,21 @@ export const MY_FORMATS = {
 		MatOptionModule,
 		MatSelectModule,
 		MatDatepickerModule,
-		MatNativeDateModule
+		MatNativeDateModule,
 	],
 	templateUrl: './new-active-pass-dialog.component.html',
 	styleUrl: './new-active-pass-dialog.component.scss',
 	providers: [
-        {
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE]},
-        {
-            provide: MAT_DATE_FORMATS,
-            useValue: MY_FORMATS
-        },
-    ],
+		{
+			provide: DateAdapter,
+			useClass: MomentDateAdapter,
+			deps: [MAT_DATE_LOCALE],
+		},
+		{
+			provide: MAT_DATE_FORMATS,
+			useValue: MY_FORMATS,
+		},
+	],
 })
 export class NewActivePassDialogComponent {
 	newActivePassForm = new UntypedFormGroup({

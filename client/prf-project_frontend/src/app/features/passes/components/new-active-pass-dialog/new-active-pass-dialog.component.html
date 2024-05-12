@@ -2,64 +2,90 @@
 
 <mat-dialog-content align="center">
 	<form [formGroup]="newActivePassForm">
-
-        <div>
-          <!-- <app-no-records
+		<div>
+			<!-- <app-no-records
             [loading]="isNewActivePassPassesLoading"
             [type]="'individual'"
           ></app-no-records> -->
-          <mat-form-field *ngIf="!isNewActivePassLoading">
-            <mat-label>Bérlet</mat-label>
-            <mat-select formControlName="pass_id" (selectionChange)="calculateValidUntil()">
-              <mat-option *ngFor="let pass of passes" [value]="pass._id">
-                {{pass.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+			<mat-form-field *ngIf="!isNewActivePassLoading">
+				<mat-label>Bérlet</mat-label>
+				<mat-select
+					formControlName="pass_id"
+					(selectionChange)="calculateValidUntil()"
+				>
+					<mat-option *ngFor="let pass of passes" [value]="pass._id">
+						{{ pass.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
 
-        <!-- <app-no-records
+		<!-- <app-no-records
           [loading]="isNewActivePassUsersLoading"
           [type]="'individual'"
         ></app-no-records> -->
-        <mat-form-field *ngIf="!isNewActivePassLoading">
-          <mat-label>Felhasználó</mat-label>
-          <mat-select formControlName="payer_id">
-            <mat-option *ngFor="let user of users" [value]="user._id">
-              {{user.name !== undefined ? user.name : user.email}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+		<mat-form-field *ngIf="!isNewActivePassLoading">
+			<mat-label>Felhasználó</mat-label>
+			<mat-select formControlName="payer_id">
+				<mat-option *ngFor="let user of users" [value]="user._id">
+					{{ user.name !== undefined ? user.name : user.email }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
 
-        <!-- <app-no-records
+		<!-- <app-no-records
           [loading]="isNewActivePassPassesLoading"
           [type]="'individual'"
         ></app-no-records> -->
-        <mat-form-field *ngIf="!isNewActivePassLoading">
-          <mat-label>Bérlet érvényességének kezdete</mat-label>
-          <input matInput [matDatepicker]="pickerActivePassValidFrom" formControlName="valid_from">
-          <mat-datepicker-toggle matIconSuffix [for]="pickerActivePassValidFrom"></mat-datepicker-toggle>
-          <mat-datepicker #pickerActivePassValidFrom (closed)="calculateValidUntil()"></mat-datepicker>
-          <mat-hint>
-            Kiválasztott dátum: {{ newActivePassForm.get('valid_from')?.value | date: 'yyyy.MM.dd. HH:mm' }}
-          </mat-hint>
-        </mat-form-field>
+		<mat-form-field *ngIf="!isNewActivePassLoading">
+			<mat-label>Bérlet érvényességének kezdete</mat-label>
+			<input
+				matInput
+				[matDatepicker]="pickerActivePassValidFrom"
+				formControlName="valid_from"
+			/>
+			<mat-datepicker-toggle
+				matIconSuffix
+				[for]="pickerActivePassValidFrom"
+			></mat-datepicker-toggle>
+			<mat-datepicker
+				#pickerActivePassValidFrom
+				(closed)="calculateValidUntil()"
+			></mat-datepicker>
+			<mat-hint>
+				Kiválasztott dátum:
+				{{
+					newActivePassForm.get("valid_from")?.value
+						| date : "yyyy.MM.dd. HH:mm"
+				}}
+			</mat-hint>
+		</mat-form-field>
 
-        <!-- <app-no-records
+		<!-- <app-no-records
           [loading]="isNewActivePassPassesLoading"
           [type]="'individual'"
         ></app-no-records> -->
-        <mat-form-field *ngIf="!isNewActivePassLoading">
-          <mat-label>Bérlet érvényességének lejárta</mat-label>
-          <input matInput [matDatepicker]="pickerActivePassValidUntil" formControlName="valid_until">
-          <mat-datepicker-toggle matIconSuffix [for]="pickerActivePassValidUntil"></mat-datepicker-toggle>
-          <mat-datepicker #pickerActivePassValidUntil></mat-datepicker>
-          <mat-hint>
-            Kiválasztott dátum: {{ newActivePassForm.get('valid_until')?.value | date: 'yyyy.MM.dd. HH:mm' }}
-          </mat-hint>
-        </mat-form-field>
-
-      </form>
+		<mat-form-field *ngIf="!isNewActivePassLoading">
+			<mat-label>Bérlet érvényességének lejárta</mat-label>
+			<input
+				matInput
+				[matDatepicker]="pickerActivePassValidUntil"
+				formControlName="valid_until"
+			/>
+			<mat-datepicker-toggle
+				matIconSuffix
+				[for]="pickerActivePassValidUntil"
+			></mat-datepicker-toggle>
+			<mat-datepicker #pickerActivePassValidUntil></mat-datepicker>
+			<mat-hint>
+				Kiválasztott dátum:
+				{{
+					newActivePassForm.get("valid_until")?.value
+						| date : "yyyy.MM.dd. HH:mm"
+				}}
+			</mat-hint>
+		</mat-form-field>
+	</form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">

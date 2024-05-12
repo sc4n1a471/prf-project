@@ -5,34 +5,34 @@ import {
 	UntypedFormControl,
 	UntypedFormGroup,
 } from '@angular/forms'
+import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import {
-	MatOptionModule,
-	MatNativeDateModule,
 	DateAdapter,
 	MAT_DATE_FORMATS,
 	MAT_DATE_LOCALE,
+	MatNativeDateModule,
+	MatOptionModule,
 } from '@angular/material/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import {
-	MatDialogModule,
-	MatDialogContent,
 	MatDialogActions,
+	MatDialogContent,
+	MatDialogModule,
 	MatDialogRef,
 } from '@angular/material/dialog'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
-import { UserService } from '../../../users/services/user.service'
-import { ServiceService } from '../../../services/services/service.service'
+import { IncomeCreate } from '../../../../shared/model/Income'
 import { Service } from '../../../../shared/model/Service'
 import { User } from '../../../../shared/model/User'
+import { ServiceService } from '../../../services/services/service.service'
+import { UserService } from '../../../users/services/user.service'
 import { IncomeService } from '../../services/income.service'
-import { IncomeCreate } from '../../../../shared/model/Income'
-import { MomentDateAdapter } from '@angular/material-moment-adapter'
 
 // @ts-ignore
 /**
@@ -147,7 +147,7 @@ export class NewIncomeDialogComponent {
 			comment,
 			amount,
 			paid,
-			createdAt
+			createdAt,
 		}
 
 		const success = await this.incomeService.createIncome(newIncomeObject)

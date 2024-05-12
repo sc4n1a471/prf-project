@@ -26,5 +26,5 @@ export interface IncomeCreate {
 	payerIds: string[]
 	name?: string
 	paid: boolean
-    createdAt?: Date
+	createdAt?: Date
 }

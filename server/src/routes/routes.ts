@@ -1,16 +1,16 @@
-import { Router, Request, Response, NextFunction } from "express"
-import * as user from "../controllers/user.controller"
-import * as auth from "../controllers/auth.controller"
-import * as service from "../controllers/service.controller"
-import * as dp from "../controllers/dp.controller"
-import * as pass from "../controllers/pass.controller"
+import { Request, Response, Router } from "express"
 import * as passInUse from "../controllers/activePass.controller"
+import * as auth from "../controllers/auth.controller"
+import * as dp from "../controllers/dp.controller"
 import * as income from "../controllers/income.controller"
+import * as pass from "../controllers/pass.controller"
+import * as service from "../controllers/service.controller"
+import * as user from "../controllers/user.controller"
 
 const router = Router()
 
 router.get("/ping", (req: Request, res: Response) => {
-    res.status(418).send("Pong!")
+	res.status(418).send("Pong!")
 })
 
 router.post("/login", auth.controller.login)
