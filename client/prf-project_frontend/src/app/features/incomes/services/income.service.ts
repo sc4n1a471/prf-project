@@ -46,6 +46,24 @@ export class IncomeService {
 		}
 	}
 
+	async updateIncome(updatedIncome: Income) {
+		try {
+			const response: Object | string = await lastValueFrom(
+				this.http.patch(endpoints.updateIncome + updatedIncome._id, updatedIncome, {
+					withCredentials: true
+				})
+			)
+			console.log("response", response);
+			
+			this.getIncomes()
+			return true
+		} catch (error) {
+			console.error(error)
+			return false
+		}
+	
+	}
+
 	async deleteIncome(incomeId: string) {
 		try {
 			const response: Object | string = await lastValueFrom(

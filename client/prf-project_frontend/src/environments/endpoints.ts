@@ -29,5 +29,6 @@ export const endpoints = {
 	// INCOMES
 	getIncomes: 'http://localhost:5005/prf/incomes',
 	createIncome: 'http://localhost:5005/prf/incomes/multiple-users',
+	updateIncome: 'http://localhost:5005/prf/incomes/',
 	deleteIncome: 'http://localhost:5005/prf/incomes/',
 }

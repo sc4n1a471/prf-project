@@ -18,21 +18,21 @@
 				</mat-expansion-panel-header>
 
 				<br />
-				<span>
+				<span *ngIf="!isEditing">
 					Itten majd lenni more info about {{ income.name }}
 				</span>
 
 				<mat-action-row>
 				<!-- <mat-action-row *ngIf="!isMobile"> -->
 					<div class="actionButtonsDiv">
-						<!-- <button
+						<button
 							class="actionButtons"
 							mat-raised-button
 							color="accent"
 							(click)="onEditIncome(income)"
 						>
 							Módosítás
-						</button> -->
+						</button>
 						<button
 							class="actionButtons"
 							mat-raised-button
@@ -43,6 +43,26 @@
 						</button>
 					</div>
 				</mat-action-row>
+
+				<form [formGroup]="editedIncomeForm" *ngIf="isEditing">
+					<mat-form-field>
+					  <mat-label>Megjegyzés: </mat-label>
+					  <input matInput type="text" formControlName="comment" />
+					</mat-form-field>
+					<br>
+					<mat-checkbox formControlName="isPaid">
+					  Fizetve?
+					</mat-checkbox>
+					<br>
+					<mat-form-field>
+					  <mat-label>Bevétel létrehozási dátuma</mat-label>
+					  <input matInput [matDatepicker]="pickerIncomeCreationDate" formControlName="createdAt">
+					  <mat-datepicker-toggle matIconSuffix [for]="pickerIncomeCreationDate"></mat-datepicker-toggle>
+					  <mat-datepicker #pickerIncomeCreationDate></mat-datepicker>
+					</mat-form-field>
+					<br>
+					<button mat-raised-button color="primary" (click)="updateIncome()">Adat frissítés</button>
+				  </form>
 
 				<p *ngIf="isDeleting">
 					<button mat-raised-button color="warn" (click)="deleteIncome(income._id)">Igen, biztos törölni akarom</button>
